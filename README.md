@@ -1,34 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 😪 NAP - Next-Auth Prisma
 
-## Getting Started
+A template you can set up in your sleep.
 
-First, run the development server:
+## For local development
 
-```bash
+Make a copy of `.env.template` and rename it to `.env`. If you use the services below like I have then you'll need to set their respective configuration values in your `.env`.
+
+### To run
+
+The project includes a launch profile for VS Code. Just hit `F5` or run
+
+```terminal
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Integrations
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Auth - Next-Auth [🔗](https://next-auth.js.org)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Environment Variables
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+| Name         |         Default         | Required |
+| ------------ | :---------------------: | :------: |
+| NEXTAUTH_URL | `http://localhost:3000` |    👍    |
+| SECRET       |        `secret`         |    👍    |
 
-## Learn More
+### Database - Supabase [🔗](https://supabase.io)
 
-To learn more about Next.js, take a look at the following resources:
+I know Supabase has there own auth thing going but getting up and running quickly using only their databases is so nice. Migration to Supabase auth is always an option if the use case calls for it. For now I like next-auth.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create an account. Signing in with Github is the easiest. Create a project and use the connection string in the `DATABASE_URL` env variable for prisma outlined below.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### ORM - Prisma [🔗](https://www.prisma.io)
 
-## Deploy on Vercel
+Again I know Supabase has their own client and using it is always an option but Prisma tooling is pretty nifty.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Next-auth also has a nice [adapter](https://next-auth.js.org/adapters/prisma) to make using prisma even easier.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Environment Variables
+
+| Name         | Required |
+| ------------ | :------: |
+| DATABASE_URL |    👍    |
+
+### Mail server - Mailtrap [🔗](https://mailtrap.io)
+
+Used for email login with next-auth (aka: magic links).
+
+Environment Variables
+
+| Name       | Required |
+| ---------- | :------: |
+| EMAIL_HOST |    👍    |
+| EMAIL_PORT |    👍    |
+| EMAIL_USER |    👍    |
+| EMAIL_PASS |    👍    |
+| EMAIL_FROM |          |
