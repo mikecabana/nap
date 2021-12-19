@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import EmailProvider from 'next-auth/providers/email';
-// import GoogleProvider from 'next-auth/providers/google';
+import GoogleProvider from 'next-auth/providers/google';
 
 const prisma = new PrismaClient();
 
@@ -19,12 +19,15 @@ export default NextAuth({
                     pass: process.env.EMAIL_PASS
                 }
             }
+        }),
+        GoogleProvider({
+            clientId: `${process.env.GOOGLE_CLIENT_ID}`,
+            clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`
         })
-        // GoogleProvider({
-        //     clientId: `${process.env.GOOGLE_CLIENT_ID}`,
-        //     clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`
-        // })
     ],
     adapter: PrismaAdapter(prisma),
+    session: {
+        strategy: 'jwt' // comment out to use database sessions
+    },
     secret: process.env.SECRET
 });
